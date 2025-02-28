@@ -63,5 +63,4 @@ Contributions are welcome! Feel free to fork this repository, open issues, or su
 
 ## License  
 
-This repository is for educational purposes.  
-**All rights reserved.**  
+This repository is for educational purposes.  **All rights reserved.**  
