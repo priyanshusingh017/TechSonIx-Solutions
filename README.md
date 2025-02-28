@@ -4,6 +4,12 @@ This repository contains a collection of beginner-to-intermediate web developmen
 
 ---
 
+## Live Demos  
+
+- 🌐 **TechSonIx Solutions**: [View Live Demo](https://kingofdarknight.github.io/TechSonIx-Solutions/)  
+
+---
+
 ## Projects Overview  
 
 ### 1. Responsive Web Page  
@@ -55,6 +61,21 @@ A webpage that fetches data from a public API (e.g., weather API) and displays i
 
 ---
 
+### 4. TechSonIx Solutions  
+**Description:**  
+A modern, responsive website for showcasing business solutions, built with HTML, CSS, and JavaScript.  
+
+- **Technologies Used:** HTML, CSS, JavaScript  
+- **Features:**  
+  - Clean and professional design  
+  - Fully responsive layout  
+  - Interactive and user-friendly interface  
+
+- **Live Demo:**  
+  🌐 [TechSonIx Solutions](https://kingofdarknight.github.io/TechSonIx-Solutions/)  
+
+---
+
 ## Contributions  
 
 Contributions are welcome! Feel free to fork this repository, open issues, or submit pull requests to enhance these projects.  
@@ -64,3 +85,4 @@ Contributions are welcome! Feel free to fork this repository, open issues, or su
 ## License  
 
 This repository is for educational purposes.  **All rights reserved.**  
+
