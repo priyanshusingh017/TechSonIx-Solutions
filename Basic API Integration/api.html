@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        /* Styling for the Weather Dashboard */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0e68c, #ff6347);
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        #city-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+        }
+
+        #search-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            background-color: #ff7f50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #search-btn:hover {
+            background-color: #e56741;
+        }
+
+        .loading, .error-message, .weather-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading p,
+        .error-message p {
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        .weather-container {
+            text-align: center;
+        }
+
+        .weather-icon img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .temperature {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+        <!-- Input Section -->
+        <div class="search-container">
+            <input type="text" id="city-input" placeholder="Enter city name">
+            <button id="search-btn">Search</button>
+        </div>
+        <!-- Loading Message -->
+        <div class="loading" id="loading">
+            <p>Loading weather data...</p>
+        </div>
+        <!-- Error Message -->
+        <div class="error-message" id="error-message">
+            <p>City not found. Please try again.</p>
+        </div>
+        <!-- Weather Details -->
+        <div class="weather-container" id="weather-container">
+            <h2 id="city-name"></h2>
+            <div class="weather-icon" id="weather-icon"></div>
+            <p id="weather-description"></p>
+            <div class="temperature" id="temperature"></div>
+            <div class="details">
+                <div class="detail-item">
+                    <p>Humidity</p>
+                    <p id="humidity"></p>
+                </div>
+                <div class="detail-item">
+                    <p>Wind Speed</p>
+                    <p id="wind-speed"></p>
+                </div>
+                <div class="detail-item">
+                    <p>Feels Like</p>
+                    <p id="feels-like"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch and Display Weather Data
+        document.addEventListener('DOMContentLoaded', () => {
+            const cityInput = document.getElementById('city-input');
+            const searchBtn = document.getElementById('search-btn');
+            const weatherContainer = document.getElementById('weather-container');
+            const errorMessage = document.getElementById('error-message');
+            const loading = document.getElementById('loading');
+            const apiKey = '5ecbf1b2d5d0f14f5ee8b99e2cb63b59'; 
+
+            searchBtn.addEventListener('click', fetchWeather);
+            cityInput.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') fetchWeather();
+            });
+
+            async function fetchWeather() {
+                const city = cityInput.value.trim();
+                if (!city) {
+                    alert('Please enter a city name.');
+                    return;
+                }
+
+                showLoading(true);
+                resetDisplay();
+
+                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) throw new Error('City not found');
+                    const data = await response.json();
+                    displayWeather(data);
+                } catch (error) {
+                    showError('City not found. Please try again.');
+                } finally {
+                    showLoading(false);
+                }
+            }
+
+            function displayWeather(data) {
+                document.getElementById('city-name').textContent = `${data.name}, ${data.sys.country}`;
+                document.getElementById('weather-icon').innerHTML = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">`;
+                document.getElementById('weather-description').textContent = data.weather[0].description;
+                document.getElementById('temperature').textContent = `${Math.round(data.main.temp)}°C`;
+                document.getElementById('humidity').textContent = `${data.main.humidity}%`;
+                document.getElementById('wind-speed').textContent = `${data.wind.speed} m/s`;
+                document.getElementById('feels-like').textContent = `${Math.round(data.main.feels_like)}°C`;
+                weatherContainer.style.display = 'block';
+            }
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+
+            function resetDisplay() {
+                weatherContainer.style.display = 'none';
+                errorMessage.style.display = 'none';
+            }
+
+            function showLoading(isLoading) {
+                loading.style.display = isLoading ? 'block' : 'none';
+            }
+        });
+    </script>
+</body>
+</html>
