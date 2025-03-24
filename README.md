@@ -6,7 +6,7 @@ This repository contains a collection of beginner-to-intermediate web developmen
 
 ## Live Demos  
 
-- 🌐 **TechSonIx Solutions**: [View Live Demo](https://kingofdarknight.github.io/TechSonIx-Solutions/)  
+- 🌐 **TechSonIx Solutions**: [View Live Demo](https://priyanshusingh017.github.io/TechSonIx-Solutions/)  
 
 ---
 
